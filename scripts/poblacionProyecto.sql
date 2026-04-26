@@ -240,3 +240,35 @@ BEGIN
     END LOOP;
 END;
 /
+
+BEGIN
+    FOR i IN 1..300 LOOP
+
+        INSERT INTO reserva_servicio (id_reserva, id_servicio, cantidad)
+        VALUES (
+            i,
+            MOD(i, 11) + 1,
+            MOD(i, 3) + 1
+        );
+
+        IF MOD(i, 2) = 0 THEN
+            INSERT INTO reserva_servicio (id_reserva, id_servicio, cantidad)
+            VALUES (
+                i,
+                MOD(i + 3, 11) + 1,
+                MOD(i, 2) + 1
+            );
+        END IF;
+
+        IF MOD(i, 5) = 0 THEN
+            INSERT INTO reserva_servicio (id_reserva, id_servicio, cantidad)
+            VALUES (
+                i,
+                MOD(i + 7, 11) + 1,
+                1
+            );
+        END IF;
+
+    END LOOP;
+END;
+/
